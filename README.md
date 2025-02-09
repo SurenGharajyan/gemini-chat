@@ -39,31 +39,33 @@ Follow these steps to configure the back-end application:
 
 
 ## Technologies Used
-* **TypeScript:** Provides static typing, which helps catch errors early and improves code quality.
-* **JavaScript:** Used for dynamic behavior and DOM manipulation.
-* **React:** A JavaScript library for building user interfaces, chosen for its component-based architecture and efficient rendering.
-* **SCSS:** Styling mechanism which is used for simplify implementation of styling. It's an alias for css
-* **npm:** Node package manager, used for managing project dependencies.
-* **Axios:** A promise-based HTTP client for making API requests, chosen for its simplicity and ease of use compared to the native fetch API.
+* **TypeScript:** Provides static typing, which helps catch errors early and improves code quality. For better developemt and typing usage
+* **JavaScript:** Used for dynamic behavior and DOM manipulation. It's the required skill point
+* **React:** A JavaScript library for building user interfaces, chosen for its component-based architecture and efficient rendering. It's the required skill point
+* **SCSS:** Styling mechanism which is used for simplify implementation of styling. It's an alias for css which making styyling more efficient to work with.
+* **npm:** Node package manager, used for managing project dependencies. It's common tool which helping to work with environments 
+* **Axios:** A promise-based HTTP client for making API requests, chosen for its simplicity and ease of use compared to the native fetch API. It is helpful to make fetch request much easier 
 
 ## Difficult Problems and Solutions
-* **Architecture decision makings:** While coding the understanding what architecture could be used is the important decision-making for me. For example axios, react with ts, node.js or express.js, structure and folder complexity
-* **Refactoring:** Code refactoring depends on situational changes
-* **Conditional use of requestAnimationFrame:** Ensuring requestAnimationFrame is only used when necessary (e.g., when sending a message) required careful refactoring of the code to separate concerns and avoid unnecessary animations. This was solved by creating a separate function for processing text without animation.
-* **Spending a lot of time for algorithmic solution for text to html cases** Since it is working fine with all data type (except data-table) because didn't have much time to give a solution 
+* **Architecture decision makings:** While coding the understanding what architecture could be used is the important decision-making for me. For example axios, react with ts, node.js or express.js, structure and folder complexity. Also, didn't use a structured css or BEM methodology or tailwind because of simpleness the application.
+* **Refactoring:** Code refactoring depends on situational changes. For example some components concerned about the structure so separation is one of the approach which has been used. 
+* **Conditional use of requestAnimationFrame:** Ensuring requestAnimationFrame is only used when necessary (e.g., when sending a message) required careful refactoring of the code to separate concerns and avoid unnecessary animations. This was solved by creating a separate function for processing text without animation. For having better performance the requestAnimationFrame is the good solution making instead of setInterval or something else.
+* **Spending a lot of time for algorithmic solution for text to html cases** Since it is working fine with all data type (except data-table) because didn't have much time to give a solution. Mostly the solution is to check the algorithm which Gemini is sending 
 
 ## Time Spent
-Overall, the task took approximately 34 working hours (approximately 2 day/48 hour), which included:
+Overall, the task took approximately 36 working hours (approximately 2 day/48 hour), which included:
 * **3 hours** for initial setup and understanding the existing codebase.
 * **4 hours** for implementing and testing the text animation logic.
 * **10 hours** for implementing the logic convert of text into HTML.
-* **4 hours** building the application on the same environment with correct data
-* **5 hours** for implementing all back-end staff included the mongodb connection
-* **6 hours** for set up the monorepo and deploy the app into environment
+* **4 hours** building the application on the same environment with correct data.
+* **5 hours** for implementing all back-end staff included the mongodb connection.
+* **5 hours** for set up the monorepo and deploy the app into environment.
+* **2 hours** for implementing all front-end staff.
+* **1 hour**for implementing the simple responsive design.
 * **1 hour** for replacing fetch with axios and testing API calls.
 * **1 hour** for writing documentation and final testing.
 
-# Project TODO List
+# Project Improvements and TODO List
 
 - Refactor code to improve readability and maintainability.
 - More responsible view implementation
@@ -72,7 +74,7 @@ Overall, the task took approximately 34 working hours (approximately 2 day/48 ho
 - Optimize the performance of the logic, focusing on minimizing unnecessary computations.
 - Enable strict type checking throughout the codebase.
 - Implement automated testing to ensure reliability of the refactored and new code.
-- Implementing the unit and integration testing for both apps
+- Implementing the unit and integration testing for both apps.
 - Review codebase for possible optimizations or simplifications.
 
-> **Note:** These tasks have not been checked off or implemented yet, as the available time has not been long enough to complete them.
+> **Note:** These above task-points haven't been checked off or implemented yet, as the available time has not been long enough to complete them. The deployed application currently working as a public data sharing.

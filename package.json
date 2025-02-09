@@ -5,7 +5,7 @@
     "dev": "concurrently \"nodemon back-end/app.ts\" \"cd front-end && npm start\"",
     "create-env": "echo 'GEMINI_API_KEY=\"\"' > ./back-end/.env && echo 'PORT=\"3344\"' >> ./back-end/.env && echo 'DB=\"mongodb://127.0.0.1:27017/geminiChat?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.8.2\"' >> ./back-end/.env && echo 'NODE_ENV=\"development\"' >> ./back-end/.env",
     "install-all": "npm install && npm install --prefix front-end && npm install --prefix back-end && npm run create-env",
-    "build": "concurrently \"mkdir -p build/fe && mkdir -p build/be \" \"npm run build:front-end\" \"npm run build:back-end\"",
+    "build": "concurrently \"mkdir -p build/fe && mkdir -p build/be \" \"npm run build:front-end --verbose\" \"npm run build:back-end\"",
     "build:front-end": "npm run build --prefix front-end && rm -rf build/fe/static && mv front-end/fe-build/* build/fe/ && rm -rf front-end/fe-build",
     "build:back-end": "npm run build --prefix back-end && rm -rf build/be/src && mv back-end/back-end/* build/be/ && cp back-end/back-end/.env build/be/ && rm -rf back-end/back-end"
   },
