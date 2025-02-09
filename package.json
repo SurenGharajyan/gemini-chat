@@ -2,7 +2,7 @@
   "name": "gemini-chat",
   "version": "1.0.0",
   "scripts": {
-    "dev": "concurrently \"nodemon back-end/app.ts\" \"cd front-end && npm start\"",
+    "dev": "concurrently \"NODE_ENV=development nodemon back-end/app.ts\" \"cd front-end && npm start\"",
     "create-env": "echo 'GEMINI_API_KEY=\"\"' > ./back-end/.env && echo 'PORT=\"3344\"' >> ./back-end/.env && echo 'DB=\"mongodb://127.0.0.1:27017/geminiChat?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.8.2\"' >> ./back-end/.env && echo 'NODE_ENV=\"development\"' >> ./back-end/.env",
     "install-all": "npm install && npm install --prefix front-end && npm install --prefix back-end && npm run create-env",
     "build": "concurrently \"mkdir -p build/fe && mkdir -p build/be \" \"npm run build:front-end --verbose\" \"npm run build:back-end\"",
