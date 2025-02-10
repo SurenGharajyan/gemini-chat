@@ -13,7 +13,7 @@ if (!mongoUri) {
     console.error('DB environment variable is not set');
     process.exit(1);
 }
-
+console.info('MONOGO', mongoUri);
 mongoose.connect(mongoUri)
     .then(() => console.log("Connected to MongoDB successfully!"))
     .catch(err => console.error("MongoDB connection error:", err));

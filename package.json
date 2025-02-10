@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix back-end\" \"npm run start --prefix front-end\"",
-    "create-env": "echo 'GEMINI_API_KEY=\"\"' > ./back-end/.env && echo 'PORT=\"3344\"' >> ./back-end/.env && echo 'DB=\"mongodb://127.0.0.1:27017/geminiChat?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.8.2\"' >> ./back-end/.env && echo 'NODE_ENV=\"development\"' >> ./back-end/.env",
+    "create-env": "echo 'GEMINI_API_KEY=\"\"' > ./back-end/.env && echo 'PORT=\"3344\"' >> ./back-end/.env && echo 'DB=\"mongodb://127.0.0.1:27017/geminiChat?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.8.2\"' >> ./back-end/.env && echo 'NODE_ENV=\"development\"' >> ./back-end/.env && echo 'REACT_APP_BASE_URL=\"http://localhost:3344/\"' > ./front-end/.env.development &&echo 'REACT_APP_BASE_URL=\"\"' > ./front-end/.env.production",
     "install-all": "npm install && npm install --prefix front-end && npm install --prefix back-end && npm run create-env",
     "build": "concurrently \"npm run build:front-end --verbose\" \"npm run build:back-end\"",
     "build:front-end": "npm run build --prefix front-end",
