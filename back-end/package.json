@@ -2,7 +2,7 @@
   "name": "back-end",
   "version": "1.0.0",
   "scripts": {
-    "build": "NODE_ENV=production tsc --project tsconfig.json && cp .env.prod ./back-end/.env"
+    "build": "NODE_ENV=production esbuild app.ts --bundle --outfile=back-end/app.js --platform=node --target=node14 --external:express && cp .env back-end/.env"
   },
   "dependencies": {
     "cors": "^2.8.5",

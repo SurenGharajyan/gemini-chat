@@ -7,8 +7,8 @@ require("dotenv").config({
     path: path.resolve(
         process.env.NODE_ENV === 'development'
             ? __dirname
-            : "dist",
-        process.env.NODE_ENV === "development" ? "../../.env" : "./.env"
+            : "back-end",
+        process.env.NODE_ENV === "development" ? "../../.env" : ".env"
     ),
 });
 
