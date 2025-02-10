@@ -3,13 +3,21 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import Conversation from '../models/Conversation';
 
 import path = require("path");
-require("dotenv").config({ path: path.resolve(process.cwd(), ".env") });
+require("dotenv").config({
+    path: path.resolve(
+        process.env.NODE_ENV === 'development'
+            ? __dirname
+            : "dist",
+        process.env.NODE_ENV === "development" ? "../../.env" : "./.env"
+    ),
+});
 
 const geminiApiKey = process.env.GEMINI_API_KEY;
 if (!geminiApiKey) {
     console.error("GEMINI_API_KEY environment variable is not set");
     process.exit(1);
 }
+
 
 const genAI = new GoogleGenerativeAI(geminiApiKey);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
