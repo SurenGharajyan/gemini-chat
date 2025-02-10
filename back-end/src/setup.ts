@@ -1,12 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import * as dotenv from 'dotenv';
-import * as path from 'path';
 import mongoose from 'mongoose';
-import chatRoutes from './src/routes/chatRoutes';
-
-
-dotenv.config({ path: path.resolve(__dirname, './env') });
+import chatRoutes from './routes/chatRoutes';
 
 const app = express();
 const mongoUri = process.env.DB;

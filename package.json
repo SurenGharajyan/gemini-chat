@@ -2,12 +2,13 @@
   "name": "gemini-chat",
   "version": "1.0.0",
   "scripts": {
-    "dev": "concurrently \"NODE_ENV=development nodemon back-end/app.ts\" \"cd front-end && npm start\"",
+    "dev": "concurrently \"npm run dev --prefix back-end\" \"npm run start --prefix front-end\"",
     "create-env": "echo 'GEMINI_API_KEY=\"\"' > ./back-end/.env && echo 'PORT=\"3344\"' >> ./back-end/.env && echo 'DB=\"mongodb://127.0.0.1:27017/geminiChat?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.8.2\"' >> ./back-end/.env && echo 'NODE_ENV=\"development\"' >> ./back-end/.env",
     "install-all": "npm install && npm install --prefix front-end && npm install --prefix back-end && npm run create-env",
-    "build": "concurrently \"mkdir -p build/fe && mkdir -p build/be \" \"npm run build:front-end --verbose\" \"npm run build:back-end\"",
-    "build:front-end": "npm run build --prefix front-end && rm -rf build/fe/static && mv front-end/fe-build/* build/fe/ && rm -rf front-end/fe-build",
-    "build:back-end": "npm run build --prefix back-end && rm -rf build/be/src && mv back-end/back-end/* build/be/ && cp back-end/back-end/.env build/be/ && rm -rf back-end/back-end"
+    "build": "concurrently \"npm run build:front-end --verbose\" \"npm run build:back-end\"",
+    "build:front-end": "npm run build --prefix front-end",
+    "build:back-end": "npm run build --prefix back-end",
+    "build:start": "NODE_PATH=./back-end/node_modules node -r dotenv/config build/be/app.js dotenv_config_path=build/be/.env & http-server build/fe/"
   },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",

@@ -1,11 +1,11 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "outDir": "./fe-build",
+    "outDir": "../build/fe/",
     "types": ["react", "react-dom"],  // React-specific types
     "jsx": "react-jsx",  // JSX transformation for React
     "target": "ES2021"
-    },
+  },
   "include": [
     "src/**/*"
   ]
