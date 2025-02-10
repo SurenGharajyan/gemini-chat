@@ -15,9 +15,11 @@ if (!mongoUri) {
 }
 
 mongoose.connect(mongoUri)
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.error('MongoDB connection error:', err));
+    .then(() => console.log("Connected to MongoDB successfully!"))
+    .catch(err => console.error("MongoDB connection error:", err));
 
 app.use('/', chatRoutes);
+
+
 
 export default app;
