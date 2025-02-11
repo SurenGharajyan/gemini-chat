@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import {ChatList, useChatListContext} from "../providers/ChatListProvider";
 import {BASE_URL} from "../helper/global";
+import React, {useEffect, useState} from 'react';
+import {ChatList, useChatListContext} from "../providers/ChatListProvider";
 
 export const ListPanel = () => {
     const {selectedConversation, setSelectedConversation, chatList, setChatList} = useChatListContext();
@@ -55,10 +55,10 @@ export const ListPanel = () => {
                 chatList.length ?
                     <>
                         <div className='top-content'>
-                            <i
-                                className='fa fa-plus'
+                            <div
+                                className='interact-icon'
                                 onClick={handleAddNewChat}
-                            ></i>
+                            ></div>
                         </div>
                         <div className="list">
                             <ul>
@@ -68,11 +68,11 @@ export const ListPanel = () => {
                                         key={item._id + index}
                                         onClick={() => handleSelectConversation(index)}
                                     >
-                                        <span>{index + 1}.{windowWidth >= 768 && ' ' + item.label}</span>
-                                        <i
-                                            className='fa fa-close'
+                                        <span>{index + 1}.{windowWidth >= 1024 && ' ' + item.label}</span>
+                                        <div
+                                            className='interact-icon close'
                                             onClick={(event) => handleDeleteChat(item._id, event)}
-                                        ></i>
+                                        ></div>
                                     </li>
                                 ))}
                             </ul>

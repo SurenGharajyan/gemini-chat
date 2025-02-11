@@ -1,10 +1,10 @@
 import React from "react";
-import {convertToTable, processText} from "./text-manipulation-tool";
+import {processText} from "./text-manipulation-tool";
 
 
 export const scrollToBottom = (container: HTMLElement) => {
     if (container) {
-        container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
+        container.scrollTo({top: container.scrollHeight, behavior: "smooth"});
     }
 };
 
@@ -35,6 +35,7 @@ export const addLetter = (
     if (stopTypingRef.current) {
         return;
     }
+
     if (index < data.length) {
         let char = data[index];
 

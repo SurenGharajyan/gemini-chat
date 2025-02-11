@@ -42,32 +42,6 @@ export const processText = (data: string): string => {
     return formattedContent;
 };
 
-export const convertToTable = (data: string): string => {
-    const lines = data.split('\n');
-    let tableHtml = '<table><thead><tr>';
-
-    // Extract headers
-    const headers = lines[1].split('|').map(header => header.trim());
-    headers.forEach(header => {
-        tableHtml += `<th>${header}</th>`;
-    });
-    tableHtml += '</tr></thead><tbody>';
-
-    // Extract rows
-    for (let i = 3; i < lines.length; i++) {
-        if (lines[i].trim() === '') continue;
-        const cells = lines[i].split('|').map(cell => cell.trim());
-        tableHtml += '<tr>';
-        cells.forEach(cell => {
-            tableHtml += `<td>${cell}</td>`;
-        });
-        tableHtml += '</tr>';
-    }
-    tableHtml += '</tbody></table>';
-
-    return tableHtml;
-};
-
 export const capitalizeFirstLetter = (string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 };

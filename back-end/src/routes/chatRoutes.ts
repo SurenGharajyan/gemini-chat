@@ -3,7 +3,6 @@ import { getChatList, createChat, getChat, deleteChat } from '../controllers/cha
 
 const router = Router();
 
-router.get('/', (req, res) => res.send('<h1>Hello</h1>'))
 router.post('/chat', createChat);
 router.get('/chat/:id', getChat);
 router.get('/chatList', getChatList);

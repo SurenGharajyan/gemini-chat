@@ -7,13 +7,27 @@ const app = express();
 const mongoUri = process.env.DB;
 
 app.use(express.json());
-app.use(cors());
+const allowedOrigins = [
+    "http://localhost:3000",
+    "https://gemini-chat.surengharajyan.com"
+];
+
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    credentials: true
+}));
 
 if (!mongoUri) {
     console.error('DB environment variable is not set');
     process.exit(1);
 }
-console.info('MONOGO', mongoUri);
+
 mongoose.connect(mongoUri)
     .then(() => console.log("Connected to MongoDB successfully!"))
     .catch(err => console.error("MongoDB connection error:", err));

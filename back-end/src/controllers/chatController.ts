@@ -7,7 +7,7 @@ if (!geminiApiKey) {
     console.error("GEMINI_API_KEY environment variable is not set");
     process.exit(1);
 }
-console.info('genAI.', geminiApiKey);
+
 const genAI = new GoogleGenerativeAI(geminiApiKey);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
@@ -53,7 +53,7 @@ export const createChat = async (req: Request, res: Response) => {
             conversation.conversationHistory.push({ role: "model", content: textResponse });
             await conversation.save();
             const aiMessage = processGeneratedContent(textResponse);
-            res.json({ id: conversation._id, label: conversation.label, aiMessage });
+            res.json({ _id: conversation._id, label: conversation.label, aiMessage });
         } else {
             res.status(500).json({ error: "No response from the model" });
         }
