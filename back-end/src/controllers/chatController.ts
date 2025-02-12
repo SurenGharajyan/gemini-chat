@@ -13,13 +13,14 @@ const genAI = new GoogleGenerativeAI(geminiApiKey);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 export const getChatList = async (req: Request, res: Response) => {
+    const id = req.body.id;
     const sessionId = req.headers['x-session-id'];
     if (!sessionId) {
         return res.status(400).json({ error: "Session ID is required" });
     }
 
     try {
-        const conversations = await Conversation.find({ sessionId }, 'label value');
+        const conversations = await Conversation.find({ sessionId, id }, 'label value');
         res.json(conversations);
     } catch (error) {
         res.status(500).json({ error: 'An error occurred while fetching the chat list' });
