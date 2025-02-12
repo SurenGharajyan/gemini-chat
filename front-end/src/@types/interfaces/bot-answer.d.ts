@@ -1,5 +1,5 @@
 export interface BotAnswer {
-    id: string,
+    _id: string,
     label: string,
     aiMessage: string
 }

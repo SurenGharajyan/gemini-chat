@@ -3,6 +3,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 interface IConversation extends Document {
     label: string;
     conversationHistory: { role: "user" | "model"; content: string }[];
+    sessionId: string
 }
 
 const ConversationSchema: Schema = new Schema({
@@ -12,7 +13,8 @@ const ConversationSchema: Schema = new Schema({
             role: { type: String, required: true },
             content: { type: String, required: true }
         }
-    ]
+    ],
+    sessionId: {type: String, required: true }
 });
 
 const Conversation = mongoose.model<IConversation>('Conversation', ConversationSchema);

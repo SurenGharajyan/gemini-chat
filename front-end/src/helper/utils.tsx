@@ -1,7 +1,6 @@
 import React from "react";
 import {processText} from "./text-manipulation-tool";
 
-
 export const scrollToBottom = (container: HTMLElement) => {
     if (container) {
         container.scrollTo({top: container.scrollHeight, behavior: "smooth"});

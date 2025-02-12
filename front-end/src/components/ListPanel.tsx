@@ -1,16 +1,16 @@
 import axios from 'axios';
 import {BASE_URL} from "../helper/global";
 import React, {useEffect, useState} from 'react';
-import {ChatList, useChatListContext} from "../providers/ChatListProvider";
+import {ChatItem, useChatListContext} from "../providers/ChatListProvider";
+import {fetchChatList} from "../service/apiService";
 
 export const ListPanel = () => {
     const {selectedConversation, setSelectedConversation, chatList, setChatList} = useChatListContext();
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     useEffect(() => {
-        axios.get(`${BASE_URL}chatList`)
-            .then(response => setChatList(response.data))
-            .catch(error => console.error('Error fetching chat list:', error));
+        fetchChatList()
+            .then((data: ChatItem[]) => setChatList(data))
     }, []);
 
     const handleResize = () => {
@@ -62,10 +62,10 @@ export const ListPanel = () => {
                         </div>
                         <div className="list">
                             <ul>
-                                {chatList.map((item: ChatList, index: number) => (
+                                {chatList.map((item: ChatItem, index: number) => (
                                     <li
                                         className={selectedConversation?._id === item._id ? 'selected' : ''}
-                                        key={item._id + index}
+                                        key={item._id}
                                         onClick={() => handleSelectConversation(index)}
                                     >
                                         <span>{index + 1}.{windowWidth >= 1024 && ' ' + item.label}</span>

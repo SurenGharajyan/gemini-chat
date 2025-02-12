@@ -7,6 +7,7 @@ import {ConversationModel} from "../@types/interfaces/conversation-model";
 import {MessageToBot} from "../@types/interfaces/send-message";
 import {ResponseConversation} from "../@types/interfaces/response-conversation";
 import {BotAnswer} from "../@types/interfaces/bot-answer";
+import { v4 as uuidv4 } from 'uuid';
 
 export const Chat = () => {
     const {chatList, setChatList, selectedConversation, setSelectedConversation} = useChatListContext();
@@ -16,6 +17,13 @@ export const Chat = () => {
     const chatContainerRef = useRef<HTMLDivElement>(null);
     const inputFieldRef = useRef<HTMLInputElement>(null);
     const abortControllerRef = useRef<AbortController | null>(null);
+
+    useEffect(() => {
+        if (!localStorage.getItem("sessionId")) {
+            const uniqueId = uuidv4();
+            localStorage.setItem("sessionId", uniqueId);
+        }
+    }, []);
 
     useEffect(() => {
         if (selectedConversation) {
@@ -40,7 +48,7 @@ export const Chat = () => {
     const fillPreviousConversation = (data: { conversationHistory: ConversationModel[] }) => {
         if (chatContainerRef.current) {
             chatContainerRef.current.innerHTML = data.conversationHistory
-                .map((message: ConversationModel) => addMessageHtml(message.role, message.content))
+                .map((message: ConversationModel) => addMessageHtml(message.role, message.content, message._id))
                 .join('');
             inputFieldRef.current?.focus();
             scrollToBottom(chatContainerRef.current);
@@ -80,18 +88,21 @@ export const Chat = () => {
     };
 
     const sendMessage = () => {
-        if (!inputFieldRef.current || isLoadingResponse) return;
-        const rawText = inputFieldRef.current.value;
+        const inputElement = inputFieldRef.current;
+        if (!inputElement || isLoadingResponse) return;
+        const rawText = inputElement.value;
 
         if (!rawText) return;
 
         appendMessage("user", rawText);
         scrollToBottom(chatContainerRef.current as HTMLElement);
-        inputFieldRef.current.value = "";
+        inputElement.value = "";
+        const sessionId = localStorage.getItem("sessionId");
 
         const payload = {
             prompt: rawText,
-            id: selectedConversation?._id ?? null
+            id: selectedConversation?._id ?? null,
+            sessionId
         };
         setIsLoadingResponse(true);
         stopTypingRef.current = false;
@@ -114,7 +125,7 @@ export const Chat = () => {
         appendMessage("model", "", botMessageId);
 
         if (!selectedConversation) {
-            const conversation = {label: data.label, _id: data.id};
+            const conversation = { label: data.label, _id: data._id };
             setSelectedConversation(conversation);
             setChatList([...chatList, conversation]);
         }

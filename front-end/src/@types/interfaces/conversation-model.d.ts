@@ -1,4 +1,6 @@
 export interface ConversationModel {
-    role: string,
-    content: string
+    id?: string | null;
+    _id?: string | null;
+    role: string;
+    content: string;
 }

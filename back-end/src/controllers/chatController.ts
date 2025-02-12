@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import Conversation from '../models/Conversation';
+import crypto from 'crypto';
 
 const geminiApiKey = process.env.GEMINI_API_KEY;
 if (!geminiApiKey) {
@@ -12,8 +13,13 @@ const genAI = new GoogleGenerativeAI(geminiApiKey);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 export const getChatList = async (req: Request, res: Response) => {
+    const sessionId = req.headers['x-session-id'];
+    if (!sessionId) {
+        return res.status(400).json({ error: "Session ID is required" });
+    }
+
     try {
-        const conversations = await Conversation.find({}, 'label value');
+        const conversations = await Conversation.find({ sessionId }, 'label value');
         res.json(conversations);
     } catch (error) {
         res.status(500).json({ error: 'An error occurred while fetching the chat list' });
@@ -21,20 +27,30 @@ export const getChatList = async (req: Request, res: Response) => {
 };
 
 export const createChat = async (req: Request, res: Response) => {
-    const { prompt: userMessage, id } = req.body;
+    const { prompt: userMessage, id, sessionId } = req.body;
 
     if (!userMessage) {
         return res.status(400).json({ error: "Prompt is required" });
     }
 
     let conversation;
+
     if (id) {
         conversation = await Conversation.findById(id);
         if (!conversation) {
             return res.status(404).json({ error: "Conversation not found" });
         }
     } else {
-        conversation = new Conversation({ label: userMessage, conversationHistory: [] });
+        if (!sessionId) {
+            return res.status(400).json({ error: "sessionId is required" });
+        }
+
+        const chatId = crypto.randomBytes(16).toString("hex");
+        conversation = new Conversation({
+            label: userMessage,
+            conversationHistory: [],
+            sessionId,
+        });
     }
 
     conversation.conversationHistory.push({ role: "user", content: userMessage });
@@ -65,14 +81,24 @@ export const createChat = async (req: Request, res: Response) => {
 };
 
 export const getChat = async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const conversation = await Conversation.findById(id);
+    try {
+        const { id } = req.params;
 
-    if (!conversation) {
-        return res.status(404).json({ error: "Conversation not found" });
+        if (!id) {
+            return res.status(400).json({ error: "Chat ID is required" });
+        }
+
+        const conversation = await Conversation.findById(id);
+
+        if (!conversation) {
+            return res.status(404).json({ error: "Conversation not found" });
+        }
+
+        res.json(conversation);
+    } catch (error) {
+        console.error("Error fetching conversation:", error);
+        res.status(500).json({ error: "Internal server error" });
     }
-
-    res.json(conversation);
 };
 
 export const deleteChat = async (req: Request, res: Response) => {

@@ -1,4 +1,5 @@
 export interface MessageToBot {
     prompt: string,
-    id: string | null
+    id: string | null,
+    sessionId: stringl,
 }

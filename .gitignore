@@ -6,9 +6,9 @@
 # Node artifact files
 node_modules/
 dist/
-back-end/back-build/
 back-end/back-end/
 front-end/fe-build/
+front-end/public/sitemap.xml
 build/
 
 # Environment files
